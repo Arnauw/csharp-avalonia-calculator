@@ -1,0 +1,25 @@
+# --- .NET Build Output ---
+bin/
+obj/
+Debug/
+Release/
+
+# --- JetBrains Rider / IntelliJ ---
+.idea/
+*.sln.iml
+*.suo
+*.user
+_ReSharper.*/
+
+# --- Linux / OS Files ---
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.log
+
+# --- Visual Studio Code (Just in case) ---
+.vscode/
+
+# --- Avalonia / Local Configs ---
+*.DotSettings.user
