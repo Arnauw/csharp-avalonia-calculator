@@ -64,7 +64,7 @@
                     HorizontalAlignment="Right"
                     Foreground="#AAAAAA"
                     FontSize="14">
-                    Inputs...
+                    0
                 </TextBlock>
                 <TextBlock
                     Name="ResultText" 
@@ -74,6 +74,14 @@
                     FontWeight="Bold">
                     0
                 </TextBlock>
+                <!-- <TextBlock -->
+                <!--     Name="TestText"  -->
+                <!--     HorizontalAlignment="Right" -->
+                <!--     Foreground="White" -->
+                <!--     FontSize="40" -->
+                <!--     FontWeight="Bold"> -->
+                <!--     TEST -->
+                <!-- </TextBlock> -->
             </StackPanel>
         </Grid>
 

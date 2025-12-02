@@ -5,10 +5,18 @@ namespace CalculatorGUI;
 
 public partial class MainWindow : Window
 {
-    // private double _currentValue = 0;
-    // private double _storedValue = 0;
-    // private string _operation = "";
-    
+    private double Add(double a, double b) => a + b;
+    private double Subtract(double a, double b) => a - b;
+    private double Multiply(double a, double b) => a * b;
+    private double Modulo(double a, double b) => a % b;
+
+    private double Divide(double a, double b)
+    {
+        if (b == 0) return 0;
+        return a / b;
+    }
+
+
     public MainWindow()
     {
         InitializeComponent();
@@ -16,24 +24,29 @@ public partial class MainWindow : Window
     
     public void OnButtonClick(object sender, RoutedEventArgs e)
     {
-        var button = (Button)sender;
+        if (InputText.Text == null) InputText.Text = "0";
+        if (ResultText.Text == null) ResultText.Text = "0";
         
+        var button = (Button)sender;
+
         string pressedValue = button?.Content?.ToString() ?? "";
 
         System.Diagnostics.Debug.WriteLine($"You pressed: {pressedValue}");
-        
-        InputText?.Text = InputText?.Text?.ToString() + $"{pressedValue}";
-        
+
+        // TestText.Text = "TEST";
+
         if (int.TryParse(pressedValue, out int number))
         {
             System.Diagnostics.Debug.WriteLine($"It's a number: {number}");
-            if (InputText?.Text?.Length > 1 && InputText?.Text?[0] == '0')
+
+            InputText.Text += $"{pressedValue}";
+
+            if ((InputText.Text.Length > 1 && InputText.Text[0] == '0'))
             {
-                // 3. One generic exception: Don't remove '0' if the next char is a dot (e.g. "0.5")
-                if (InputText.Text[1] != '.')
+                if (InputText.Text[1] is not ('.' or '÷' or '×' or '-' or '+' or '%'))
                 {
-                    // REMOVE the first character
                     InputText.Text = InputText.Text.Substring(1);
+                    // TestText.Text = "we're in the condition";
                 }
             }
         }
@@ -43,20 +56,56 @@ public partial class MainWindow : Window
 
             if (pressedValue == "C")
             {
-                InputText?.Text = "0";
+                InputText.Text = "0";
+                ResultText.Text = "0";
+            }
+
+            if (pressedValue == "AC")
+            {
+                InputText.Text = "0";
+                ResultText.Text = "0";
+            }
+
+            if (pressedValue is "." or "÷" or "×" or "-" or "+" or "%")
+            {
+                char[] operators = { '+', '-', '×', '÷', '%' };
+
+                char lastInputChar = InputText.Text[^1];
+                
+                if (InputText.Text.IndexOfAny(operators) != -1)
+                {
+                    return;
+                }
+
+                InputText.Text += $"{pressedValue}";
+            }
+
+            if (pressedValue == "=")
+            {
+                char[] operators = { '+', '-', '×', '÷', '%' };
+                int operatorIndex = InputText.Text.IndexOfAny(operators);
+                char operatorChar = InputText.Text[operatorIndex];
+                string leftValue = InputText.Text.Substring(0, operatorIndex);
+                string rightValue = InputText.Text.Substring(operatorIndex + 1);
+
+                // TestText.Text = $"leftPart={leftValue} rightPart={rightValue} operator={operatorChar}";
+
+                if (double.TryParse(leftValue, out double num1) &&
+                    double.TryParse(rightValue, out double num2))
+                {
+                    double result = operatorChar switch
+                    {
+                        '+' => Add(num1, num2),
+                        '-' => Subtract(num1, num2),
+                        '×' => Multiply(num1, num2),
+                        '÷' => Divide(num1, num2),
+                        '%' => Modulo(num1, num2),
+                        _ => 0
+                    };
+                    
+                    ResultText.Text = $"{result}";
+                }
             }
         }
-        
-        
-        
-
-        
-        
-        // TODO: Add your If/Else or Switch logic here to handle numbers vs operators
     }
 }
-
-
-
-
-
