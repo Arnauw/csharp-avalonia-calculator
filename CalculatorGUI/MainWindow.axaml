@@ -7,87 +7,107 @@
         Title="Calculator"
         Icon="/Assets/logo/logo.ico"
         Width="350" Height="350"
-        MinWidth="300" MinHeight="300"
+        MinWidth="300" MinHeight="350"
         CanResize="True">
-    
+
     <Window.Styles>
+
         <Style Selector="Button">
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="Margin" Value="5" />
+            <Setter Property="Margin" Value="4" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="CornerRadius" Value="10" />
-            <Setter Property="BorderBrush" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
             <Setter Property="FontSize" Value="20" />
-            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+
+            <!-- Dark Theme Colors -->
+            <Setter Property="Background" Value="#353535" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#60FFFFFF" />
+            <Setter Property="BorderThickness" Value="1" />
+
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.15" />
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.05" />
+                </Transitions>
+            </Setter>
         </Style>
 
-        <!-- Testing classes -->
-        <Style Selector="Button.testClass">
-            <Setter Property="Background" Value="Aqua" />
+        <!-- Hover -->
+        <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#454545" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#80FFFFFF" />
         </Style>
+
+        <!-- Pressed -->
+        <Style Selector="Button:pressed /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#303030" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <Style Selector="Button:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.96)" />
+        </Style>
+
     </Window.Styles>
 
 
-    <StackPanel>
-        <Grid RowDefinitions="*" ColumnDefinitions="*">
-            <TextBlock HorizontalAlignment="Center">Calculator Title (will probably remove that)</TextBlock>
-            <StackPanel Background="MediumSlateBlue">
-                <TextBlock HorizontalAlignment="Center">Inputs: </TextBlock>
-                <TextBlock HorizontalAlignment="Center">Results: </TextBlock>
+    <Grid RowDefinitions="Auto, *">
+
+        <Grid Grid.Row="0" RowDefinitions="*" ColumnDefinitions="*" Background="#202020">
+            <StackPanel Margin="20">
+                <TextBlock
+                    HorizontalAlignment="Right"
+                    Foreground="#AAAAAA"
+                    FontSize="14">
+                    Inputs...
+                </TextBlock>
+                <TextBlock
+                    HorizontalAlignment="Right"
+                    Foreground="White"
+                    FontSize="40"
+                    FontWeight="Bold">
+                    0
+                </TextBlock>
             </StackPanel>
         </Grid>
+
         <Grid
+            Grid.Row="1"
             RowDefinitions="*, *, *, *, *"
             ColumnDefinitions="*, *, *, *"
-            Background="BlueViolet">
+            Background="#1E1E1E">
 
             <!-- Col 0 -->
-            <Button Grid.Row="0" Grid.Column="0" Classes="testClass" Content="C" />
-
+            <Button Grid.Row="0" Grid.Column="0" Content="C" />
             <Button Grid.Row="1" Grid.Column="0" Content="7" />
-
             <Button Grid.Row="2" Grid.Column="0" Content="4" />
-
             <Button Grid.Row="3" Grid.Column="0" Content="1" />
-
             <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="0" />
 
             <!-- Col 1   -->
-
             <Button Grid.Row="0" Grid.Column="1" Content="AC" />
-
             <Button Grid.Row="1" Grid.Column="1" Content="8" />
-
             <Button Grid.Row="2" Grid.Column="1" Content="5" />
-
             <Button Grid.Row="3" Grid.Column="1" Content="2" />
 
             <!-- Col 2 -->
-
             <Button Grid.Row="0" Grid.Column="2" Content="%" />
-
             <Button Grid.Row="1" Grid.Column="2" Content="9" />
-
             <Button Grid.Row="2" Grid.Column="2" Content="6" />
-
             <Button Grid.Row="3" Grid.Column="2" Content="3" />
-
             <Button Grid.Row="4" Grid.Column="2" Content="." />
 
             <!-- Col 3 -->
-
             <Button Grid.Row="0" Grid.Column="3" Content="÷" />
-
             <Button Grid.Row="1" Grid.Column="3" Content="×" />
-
             <Button Grid.Row="2" Grid.Column="3" Content="-" />
-
             <Button Grid.Row="3" Grid.Column="3" Content="+" />
-
             <Button Grid.Row="4" Grid.Column="3" Content="=" />
-
         </Grid>
-    </StackPanel>
+
+    </Grid>
 </Window>
